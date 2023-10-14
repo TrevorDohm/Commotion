@@ -16,6 +16,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
+    
+    let maxSpawns = 10
+    var currSpawns = 0
+    
     func startMotionUpdates(){
         // some internal inconsistency here: we need to ask the device manager for device
         
@@ -32,7 +36,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // MARK: View Hierarchy Functions
-    let spinBlock = SKSpriteNode()
     let scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
     var score:Int = 0 {
         willSet(newValue){
@@ -163,22 +166,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func spawnBobble(){
-        let bobble = SKSpriteNode(imageNamed: "bobble") // this is literally a sprite bottle... 😎
-        let bobbleSize = 0.05
-        bobble.size = CGSize(width:size.width*bobbleSize,height:size.height * bobbleSize * 0.65) //0.65 is to keep aspect ratio correct
+        if currSpawns < maxSpawns {
+            
         
-        let randNumber = Int.random(in:30...Int(size.width))
-        print(randNumber)
-        bobble.position = CGPoint(x: CGFloat(randNumber), y: size.height * 0.75)
-        
-        bobble.physicsBody = SKPhysicsBody(rectangleOf:bobble.size)
-        bobble.physicsBody?.restitution = random(min: CGFloat(1.0), max: CGFloat(1.5))
-        bobble.physicsBody?.isDynamic = true
-        bobble.physicsBody?.contactTestBitMask = 0x00000001
-        bobble.physicsBody?.collisionBitMask = 0x00000001
-        bobble.physicsBody?.categoryBitMask = 0x00000001
-        bobble.name="LARSON"
-        self.addChild(bobble)
+            let bobble = SKSpriteNode(imageNamed: "bobble") // this is literally a sprite bottle... 😎
+            let bobbleSize = 0.05
+            bobble.size = CGSize(width:size.width*bobbleSize,height:size.height * bobbleSize * 0.65) //0.65 is to keep aspect ratio correct
+            
+            let randNumber = Int.random(in:30...Int(size.width))
+            print(randNumber)
+            bobble.position = CGPoint(x: CGFloat(randNumber), y: size.height * 0.75)
+            
+            bobble.physicsBody = SKPhysicsBody(rectangleOf:bobble.size)
+            bobble.physicsBody?.restitution = random(min: CGFloat(1.0), max: CGFloat(1.5))
+            bobble.physicsBody?.isDynamic = true
+            bobble.physicsBody?.contactTestBitMask = 0x00000001
+            bobble.physicsBody?.collisionBitMask = 0x00000001
+            bobble.physicsBody?.categoryBitMask = 0x00000001
+            bobble.name="LARSON"
+            self.addChild(bobble)
+            currSpawns += 1
+        }
     }
     
    
