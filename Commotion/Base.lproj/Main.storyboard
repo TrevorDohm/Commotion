@@ -34,45 +34,50 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5S-Va-zVe">
-                                <rect key="frame" x="135" y="92" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdO-Ft-GJs">
+                                <rect key="frame" x="317" y="626" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6M-ih-zSd">
-                                <rect key="frame" x="200" y="141" width="69" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxl-py-5NL">
+                                <rect key="frame" x="150" y="619" width="75" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Game"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Button"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8om-gl-6fv">
-                                <rect key="frame" x="135" y="191" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcl-7D-P3i">
+                                <rect key="frame" x="166" y="566" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jxl-py-5NL" secondAttribute="bottom" constant="13" id="2Md-lE-Gyi"/>
                             <constraint firstItem="Z1u-hz-r1E" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="36a-zk-CXp"/>
                             <constraint firstItem="Z1u-hz-r1E" firstAttribute="top" secondItem="y4k-Fy-Nyf" secondAttribute="bottom" constant="8" symbolic="YES" id="6zL-j5-RHH"/>
                             <constraint firstItem="Z1u-hz-r1E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="9hY-HY-IgX"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HdO-Ft-GJs" secondAttribute="bottom" constant="20" id="CFH-rQ-bi3"/>
+                            <constraint firstItem="gcl-7D-P3i" firstAttribute="top" secondItem="KYq-39-foA" secondAttribute="bottom" constant="189" id="H9G-6d-8yK"/>
+                            <constraint firstItem="HdO-Ft-GJs" firstAttribute="leading" secondItem="jxl-py-5NL" secondAttribute="trailing" constant="92" id="LPl-AE-ze2"/>
                             <constraint firstItem="KYq-39-foA" firstAttribute="top" secondItem="Z1u-hz-r1E" secondAttribute="bottom" constant="8" symbolic="YES" id="MlE-cN-ePE"/>
                             <constraint firstItem="Z1u-hz-r1E" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="VdW-ig-QhL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gcl-7D-P3i" secondAttribute="trailing" constant="151" id="ZFz-f2-kNf"/>
+                            <constraint firstItem="jxl-py-5NL" firstAttribute="top" secondItem="gcl-7D-P3i" secondAttribute="bottom" constant="32" id="qck-Sd-oY4"/>
+                            <constraint firstItem="HdO-Ft-GJs" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="sOB-Yw-O5q"/>
                             <constraint firstItem="KYq-39-foA" firstAttribute="leading" secondItem="y4k-Fy-Nyf" secondAttribute="leading" id="sdF-sR-F5d"/>
+                            <constraint firstItem="gcl-7D-P3i" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="150" id="wc2-8W-A9q"/>
                             <constraint firstItem="y4k-Fy-Nyf" firstAttribute="centerX" secondItem="Z1u-hz-r1E" secondAttribute="centerX" id="xsL-pu-xtb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="isWalking" destination="KYq-39-foA" id="Jtv-M3-ffl"/>
-                        <outlet property="playGameButton" destination="t6M-ih-zSd" id="vhM-Wt-7rb"/>
+                        <outlet property="playGameButton" destination="jxl-py-5NL" id="jJX-qu-KRq"/>
+                        <outlet property="stepsGoalLabel" destination="HdO-Ft-GJs" id="44Q-NY-zS0"/>
                         <outlet property="stepsLabel" destination="y4k-Fy-Nyf" id="saR-4n-TYT"/>
                         <outlet property="stepsSlider" destination="Z1u-hz-r1E" id="djv-At-LhT"/>
-                        <outlet property="stepsToGoalLabel" destination="8om-gl-6fv" id="CgY-vI-L7Z"/>
-                        <outlet property="stepsYesterdayLabel" destination="v5S-Va-zVe" id="hWj-mq-o1E"/>
+                        <outlet property="stepsYesterdayLabel" destination="gcl-7D-P3i" id="Mq1-we-6bv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
