@@ -55,14 +55,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addScore()
         
-//        addBarAtPoint(pt: CGPoint(x: frame.midX, y: frame.minY + size.height * 0.05),ht: CGFloat(0.15),wd: CGFloat(0.025))
         addScoringBins(numBins:7)
         for i in 0...4 {
             drawRowOfDots(pt: CGPoint(x: frame.midX, y: frame.midY - 50 * CGFloat(i)), width: ((size.width - size.width * 0.1)/2.0) - 10,numPoints: i + 3)
         }
-//        drawRowOfDots(pt: CGPoint(x: frame.midX, y: frame.midY ), width: ((size.width - size.width * 0.1)/2.0) - 10,numPoints: 7)
-//
-//        drawRowOfDots(pt: CGPoint(x: frame.midX, y: frame.midY + 30 ), width: ((size.width - size.width * 0.1)/2.0) - 10,numPoints: 4)
+        
         self.score = 0
     }
     func drawRowOfDots(pt:CGPoint,width:CGFloat,numPoints:Int = 10) {
@@ -78,7 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addDot(pt:CGPoint,rad:CGFloat=10) {
-        print("Added dot at \(pt.x) , \(pt.y)")
+//        print("Added dot at \(pt.x) , \(pt.y)")
         let dot = SKSpriteNode()
 //        dot.size = CGSize(width: size.width * wd, height: size.height * ht)
         dot.size = CGSize(width: rad, height: rad)
@@ -100,7 +97,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let numBars = numBins - 1
         let binWidth = CGFloat((size.width - size.width * 0.1 ) / CGFloat(numBins))
         
-        print("Num Bins \(numBins) | BinWidth: \(binWidth)")
+//        print("Num Bins \(numBins) | BinWidth: \(binWidth)")
         let midPt = Int(numBins / 2) + 1
         
         for i in 1...numBars {
@@ -108,9 +105,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let _y = frame.minY + size.height * 0.05
             addBarAtPoint(pt: CGPoint(x:_x , y: _y),ht: ht, wd: wd)
             addLabelAtPt(pt: CGPoint(x:_x - (binWidth/2.0), y: _y), txt: "\(Int(10/(abs(i - midPt) + 1)))")
+            addScoreZoneAtPt(pt: CGPoint(x:_x - (binWidth/2.0), y: _y), num: (Int(10/(abs(i - midPt) + 1))), w: binWidth - 10)
             
         }
         addLabelAtPt(pt: CGPoint(x: binWidth * CGFloat(numBins) + size.width * 0.05 - binWidth/2.0, y: frame.minY + size.height * 0.05), txt: "\(Int(10/(abs(numBins - midPt) + 1)))")
+        addScoreZoneAtPt(pt: CGPoint(x: binWidth * CGFloat(numBins) + size.width * 0.05 - binWidth/2.0, y: frame.minY + size.height * 0.05), num: Int(10/(abs(numBins - midPt) + 1)),w:binWidth - 10)
+        
     }
     
     func addLabelAtPt(pt:CGPoint,txt:String) {
@@ -120,6 +120,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         binLabel.fontSize = 20
         binLabel.fontColor = SKColor.blue
         addChild(binLabel)
+        
+        
+    }
+    
+    func addScoreZoneAtPt(pt:CGPoint,num:Int,w:CGFloat) {
+        print("Adding ScoreZone at pt: \(pt.x), \(pt.y)")
+        let scoreBin = SKSpriteNode()
+        scoreBin.size = CGSize(width: w, height: 20)
+        scoreBin.position = pt
+        
+//        scoreBin.color = UIColor.black
+        scoreBin.physicsBody = SKPhysicsBody(rectangleOf:scoreBin.size)
+        
+        scoreBin.physicsBody?.isDynamic = true
+        
+        scoreBin.physicsBody?.pinned = true
+        scoreBin.physicsBody?.allowsRotation = false
+        scoreBin.physicsBody?.contactTestBitMask = 0x00000001
+        scoreBin.physicsBody?.collisionBitMask = 0x00000001
+        scoreBin.physicsBody?.categoryBitMask = 0x00000001
+        
+        scoreBin.name = "SCORE_BIN"
+//        scoreBin.userData?.setValue(num, forKey: "pts")
+        
+        let tmp = NSMutableDictionary(object: num, forKey: "pts" as NSCopying)
+//        tmp["pts"] = num
+        scoreBin.userData = tmp
+        self.addChild(scoreBin)
+        
     }
     // MARK: Create Sprites Functions
     func addScore(){
@@ -148,7 +177,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bobble.physicsBody?.contactTestBitMask = 0x00000001
         bobble.physicsBody?.collisionBitMask = 0x00000001
         bobble.physicsBody?.categoryBitMask = 0x00000001
-        
+        bobble.name="LARSON"
         self.addChild(bobble)
     }
     
@@ -168,6 +197,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
         
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+//        print(contact.bodyA.node!.userData?["pts"], ", ", contact.bodyB.node!.userData?["pts"])
+        if let nm = contact.bodyA.node?.name as? String,
+           let sc = contact.bodyA.node!.userData?["pts"] as? Int,
+           let b_nm = contact.bodyB.node?.name as? String {
+            if nm == "SCORE_BIN" && b_nm == "LARSON" {
+                score += sc
+                contact.bodyB.node?.removeFromParent()
+            }
+        }
+        if let nm = contact.bodyB.node?.name as? String,
+           let sc = contact.bodyB.node!.userData?["pts"] as? Int,
+           let a_nm = contact.bodyA.node?.name as? String{
+            if nm == "SCORE_BIN" && a_nm == "LARSON"{
+                contact.bodyA.node?.removeFromParent()
+                score += sc
+            }
+        }
+        
+                    
+    }
     
     func addBounds(){
         let left = SKSpriteNode()
