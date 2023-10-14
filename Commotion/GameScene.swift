@@ -27,7 +27,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func handleMotion(_ motionData:CMDeviceMotion?, error:Error?){
         if let gravity = motionData?.gravity {
-//            print(gravity)
             self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: CGFloat(9.8*gravity.y))
         }
     }
@@ -57,8 +56,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addScore()
         
 //        addBarAtPoint(pt: CGPoint(x: frame.midX, y: frame.minY + size.height * 0.05),ht: CGFloat(0.15),wd: CGFloat(0.025))
-        addScoringBins(numBins:5)
+        addScoringBins(numBins:7)
+        for i in 0...4 {
+            drawRowOfDots(pt: CGPoint(x: frame.midX, y: frame.midY - 50 * CGFloat(i)), width: ((size.width - size.width * 0.1)/2.0) - 10,numPoints: i + 3)
+        }
+//        drawRowOfDots(pt: CGPoint(x: frame.midX, y: frame.midY ), width: ((size.width - size.width * 0.1)/2.0) - 10,numPoints: 7)
+//
+//        drawRowOfDots(pt: CGPoint(x: frame.midX, y: frame.midY + 30 ), width: ((size.width - size.width * 0.1)/2.0) - 10,numPoints: 4)
         self.score = 0
+    }
+    func drawRowOfDots(pt:CGPoint,width:CGFloat,numPoints:Int = 10) {
+        let minW = pt.x - width
+        let maxW = pt.x + width
+        
+        let stepSize:CGFloat = (maxW - minW)/CGFloat(numPoints)
+        
+        for i in 0...numPoints{
+            addDot(pt: CGPoint(x: stepSize * CGFloat(i) + minW, y: pt.y))
+        }
+        
+    }
+    
+    func addDot(pt:CGPoint,rad:CGFloat=10) {
+        print("Added dot at \(pt.x) , \(pt.y)")
+        let dot = SKSpriteNode()
+//        dot.size = CGSize(width: size.width * wd, height: size.height * ht)
+        dot.size = CGSize(width: rad, height: rad)
+        
+        dot.position = pt
+        
+        
+        
+        dot.color = UIColor.systemPink
+        dot.physicsBody = SKPhysicsBody(rectangleOf: dot.size)
+        dot.physicsBody?.isDynamic = true
+        dot.physicsBody?.pinned = true
+        dot.physicsBody?.allowsRotation = false
+        self.addChild(dot)
     }
     
     func addScoringBins(numBins:Int = 3, ht:CGFloat = 0.15,wd:CGFloat = 0.025 ) {
@@ -67,17 +101,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let binWidth = CGFloat((size.width - size.width * 0.1 ) / CGFloat(numBins))
         
         print("Num Bins \(numBins) | BinWidth: \(binWidth)")
-        
+        let midPt = Int(numBins / 2) + 1
         
         for i in 1...numBars {
-            
             let _x = binWidth * CGFloat(i) + size.width * 0.05
             let _y = frame.minY + size.height * 0.05
             addBarAtPoint(pt: CGPoint(x:_x , y: _y),ht: ht, wd: wd)
-            addLabelAtPt(pt: CGPoint(x:_x - (binWidth/2.0), y: _y), txt: "\(i)")
+            addLabelAtPt(pt: CGPoint(x:_x - (binWidth/2.0), y: _y), txt: "\(Int(10/(abs(i - midPt) + 1)))")
             
         }
-        addLabelAtPt(pt: CGPoint(x: binWidth * CGFloat(numBins) + size.width * 0.05 - binWidth/2.0, y: frame.minY + size.height * 0.05), txt: "\(numBins)")
+        addLabelAtPt(pt: CGPoint(x: binWidth * CGFloat(numBins) + size.width * 0.05 - binWidth/2.0, y: frame.minY + size.height * 0.05), txt: "\(Int(10/(abs(numBins - midPt) + 1)))")
     }
     
     func addLabelAtPt(pt:CGPoint,txt:String) {
@@ -94,7 +127,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.text = "Score: 0"
         scoreLabel.fontSize = 20
         scoreLabel.fontColor = SKColor.blue
-        scoreLabel.position = CGPoint(x: frame.midX, y: frame.maxY)
+        scoreLabel.position = CGPoint(x: frame.midX, y: frame.maxY - size.height * 0.1)
         
         addChild(scoreLabel)
     }
