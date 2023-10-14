@@ -11,10 +11,12 @@ import CoreMotion
 
 class ViewController: UIViewController {
     
-    //MARK: =====class variables=====
+    // MARK: Class Variables
+    
     let activityManager = CMMotionActivityManager()
     let pedometer = CMPedometer()
     let motion = CMMotionManager()
+    
     var totalSteps: Float = 0.0 {
         willSet(newtotalSteps){
             DispatchQueue.main.async{
@@ -24,11 +26,30 @@ class ViewController: UIViewController {
         }
     }
     
+    var stepsYesterday: Float = 0.0 {
+        willSet(newStepsYesterday){
+            DispatchQueue.main.async{
+                self.stepsYesterdayLabel.text = "Steps Yesterday: \(newStepsYesterday)"
+            }
+        }
+    }
+    var dailyGoal: Float = 10000.0 { // Default value
+        didSet {
+            UserDefaults.standard.set(dailyGoal, forKey: "DailyGoal")
+        }
+    }
+    var stepsRemaining: Float {
+        return dailyGoal - totalSteps
+    }
+    
     //MARK: =====UI Elements=====
+    
     @IBOutlet weak var stepsSlider: UISlider!
     @IBOutlet weak var stepsLabel: UILabel!
     @IBOutlet weak var isWalking: UILabel!
-    
+    @IBOutlet weak var stepsYesterdayLabel: UILabel!
+    @IBOutlet weak var stepsGoalLabel: UILabel!
+    @IBOutlet weak var playGameButton: UIButton!
     
     //MARK: =====View Lifecycle=====
     override func viewDidLoad() {
@@ -78,8 +99,9 @@ class ViewController: UIViewController {
         }
     }
     
-    // MARK: =====Pedometer Methods=====
-    func startPedometerMonitoring(){
+    // MARK: Pedometer Meters
+    
+    func startPedometerMonitoring() {
         //separate out the handler for better readability
         if CMPedometer.isStepCountingAvailable(){
             pedometer.startUpdates(from: Date(),
