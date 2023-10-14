@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var playGameButton: UIButton!
     
     override func viewWillAppear(_ animated: Bool) {
-        self.playGameButton.isHidden = true
+        // self.playGameButton.isHidden = true
         self.stepsGoalLabel.text = String("Step Goal: " + String(Int(self.dailyGoal)))
         self.stepsSlider.value = Float(self.dailyGoal)
     }

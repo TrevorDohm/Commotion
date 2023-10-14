@@ -44,6 +44,9 @@
                                 <rect key="frame" x="150" y="619" width="75" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Button"/>
+                                <connections>
+                                    <segue destination="uAs-2Q-GOu" kind="show" id="cCL-DP-zwF"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcl-7D-P3i">
                                 <rect key="frame" x="166" y="566" width="42" height="21"/>
@@ -93,14 +96,15 @@
                         <viewControllerLayoutGuide type="bottom" id="9ra-ia-fff"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9m8-Lp-cfY" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Bxv-NU-Mfd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EJd-XG-b1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="564" y="994.45277361319347"/>
+            <point key="canvasLocation" x="1426" y="337"/>
         </scene>
     </scenes>
 </document>
