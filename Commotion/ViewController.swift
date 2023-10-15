@@ -35,6 +35,10 @@ class ViewController: UIViewController {
     // Note: "WillSet" Used When Method Does Not Need The Variable,
     // "DidSet" For When Method References Variable In It's Assignment
     
+    //initialize currency for grad section, base is 5
+    var numberOfLives = 5
+    
+    
     // Initialize Steps Today
     var stepsToday: Int = 0 {
         willSet(newStepsToday) {
@@ -64,7 +68,6 @@ class ViewController: UIViewController {
     // Getting 10000 Steps Eric? Because I'm Surely Not :3
     var dailyGoal: Int = 10000 {
         didSet {
-            
             // Maintain Daily Goal
             if self.dailyGoal != 0 {
                 defaults.set(self.dailyGoal, forKey: "DailyGoal")
@@ -107,7 +110,12 @@ class ViewController: UIViewController {
         // Start Activity Monitoring (Whatcha Doin?)
         self.startActivityMonitoring()
         
-        // Fetch Pedometer Information Frequently
+        //draw initial circle
+        DispatchQueue.main.async{
+            self.viewInterface.createCircle(stepsToday: self.stepsToday, stepGoal: self.dailyGoal)
+        }
+        
+        // Fetch Pedometer Information Frequently and update viewInterface with new pedometer info
         stepUpdateTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self,
             selector: #selector(self.fetchSteps),
             userInfo: nil, repeats: true)
@@ -176,23 +184,29 @@ class ViewController: UIViewController {
                 self.stepsToday = steps.intValue
             }
         }
-        //updateGoalStatus()
         
-        // UPDATE VIEW HERE! (MAKE SURE TO CALL MAIN QUEUE)
+        // The circle graph gets updated with the new steps data and shows today's steps vs the target Goal Steps, and will update if the dailyGoal is changed. This update function was made to reduce lag and will only update the circle graph if a change is made.
         DispatchQueue.main.async{
-//            self.viewInterface.setNeedsDisplay()
-            self.viewInterface.showCircle(stepsToday: self.stepsToday, stepGoal: self.dailyGoal)
+            self.viewInterface.updateCircle(stepsToday: self.stepsToday, stepGoal: self.dailyGoal)
         }
-        
     }
     
     // Update Goal Status - Need To Call From Main Queue
     func updateGoalStatus() {
-        let remainingSteps = max(0, Int(self.dailyGoal) - Int(self.stepsYesterday))
-        self.stepsGoalLabel.text = "Steps Remaining -> Goal: \(remainingSteps)"
-        playGameButton.isHidden = remainingSteps > 0
-        let numberOfLives = max(5, stepsYesterday/0100)
+        let remainingStepsForGame = max(0, Int(self.dailyGoal) - Int(self.stepsYesterday))
+        let remainingSteps = max(0, Int(self.dailyGoal) - Int(self.stepsToday))
+
+        self.stepsGoalLabel.text = "Steps Remaining for today: \(remainingSteps)"
+        playGameButton.isHidden = remainingStepsForGame > 0
         
+        //To incentivize walking and reaching your
+        self.numberOfLives = max(5, stepsYesterday/10)
         
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if let destinationVC = segue.destination as? GameViewController {
+                destinationVC.currency = self.numberOfLives
+            }
+        }
+    
 }

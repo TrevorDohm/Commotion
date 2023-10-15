@@ -17,7 +17,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
     
-    let maxSpawns = 10
+    
+    var maxSpawns = 10
+    
     var currSpawns = 0
     
     func startMotionUpdates(){
