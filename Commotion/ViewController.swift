@@ -191,5 +191,8 @@ class ViewController: UIViewController {
         let remainingSteps = max(0, Int(self.dailyGoal) - Int(self.stepsYesterday))
         self.stepsGoalLabel.text = "Steps Remaining -> Goal: \(remainingSteps)"
         playGameButton.isHidden = remainingSteps > 0
+        let numberOfLives = max(5, stepsYesterday/0100)
+        
+        
     }
 }
