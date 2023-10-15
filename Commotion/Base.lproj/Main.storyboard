@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="20000" translatesAutoresizingMaskIntoConstraints="NO" id="Z1u-hz-r1E">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10000" minValue="0.0" maxValue="20000" translatesAutoresizingMaskIntoConstraints="NO" id="Z1u-hz-r1E">
                                 <rect key="frame" x="14" y="70" width="347" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="CL2-Ft-BMa"/>
@@ -30,7 +30,7 @@
                                     <action selector="sliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="NII-Fb-PUL"/>
                                 </connections>
                             </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Steps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4k-Fy-Nyf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4k-Fy-Nyf">
                                 <rect key="frame" x="16" y="108" width="333" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="333" id="jzt-rj-L9u"/>
@@ -116,11 +116,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="isWalking" destination="KYq-39-foA" id="Jtv-M3-ffl"/>
+                        <outlet property="activityLabel" destination="KYq-39-foA" id="Nmd-ED-GoS"/>
+                        <outlet property="goalSlider" destination="Z1u-hz-r1E" id="1ud-Uf-wIt"/>
                         <outlet property="playGameButton" destination="jxl-py-5NL" id="jJX-qu-KRq"/>
                         <outlet property="stepsGoalLabel" destination="HdO-Ft-GJs" id="44Q-NY-zS0"/>
-                        <outlet property="stepsLabel" destination="y4k-Fy-Nyf" id="saR-4n-TYT"/>
-                        <outlet property="stepsSlider" destination="Z1u-hz-r1E" id="djv-At-LhT"/>
+                        <outlet property="stepsTodayLabel" destination="y4k-Fy-Nyf" id="ekh-md-43J"/>
                         <outlet property="stepsYesterdayLabel" destination="gcl-7D-P3i" id="Mq1-we-6bv"/>
                         <outlet property="viewInterface" destination="MPT-yJ-Mx4" id="OPJ-Fn-5D4"/>
                     </connections>
