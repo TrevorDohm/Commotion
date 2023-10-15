@@ -34,6 +34,7 @@ class ViewInterface: UIView {
             clockwise: true
         )
         
+        //Draw a gray circle outline. This will get overrlapped by the green progress circle.
         let trackShape = CAShapeLayer()
         trackShape.path = trackCirclePath.cgPath
         trackShape.fillColor = UIColor.clear.cgColor
@@ -43,14 +44,16 @@ class ViewInterface: UIView {
         
         let endAngle = 2 * .pi * progress - .pi/2
 
-            let circlePath = UIBezierPath(
-                arcCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY),
-                radius: 150,
-                startAngle: -(.pi / 2),
-                endAngle: CGFloat(endAngle),
-                clockwise: true
-            )
+        //Draw initial green progress circle.
+        let circlePath = UIBezierPath(
+            arcCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY),
+            radius: 150,
+            startAngle: -(.pi / 2),
+            endAngle: CGFloat(endAngle),
+            clockwise: true
+        )
 
+        //Creates initial shape and goal text which will be updated in the below section
             goalLabel.text = "\(stepsToday) Out of  \(stepGoal) Steps "
             goalLabel.sizeToFit()
             self.addSubview(goalLabel)
@@ -88,7 +91,4 @@ class ViewInterface: UIView {
         // Update the shape layer path
         shape.path = circlePath.cgPath
     }
-
-   
-    
 }
