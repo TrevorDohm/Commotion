@@ -176,17 +176,19 @@ class ViewController: UIViewController {
                 self.stepsToday = steps.intValue
             }
         }
+        //updateGoalStatus()
         
         // UPDATE VIEW HERE! (MAKE SURE TO CALL MAIN QUEUE)
-//        DispatchQueue.main.async{
-//
-//        }
+        DispatchQueue.main.async{
+//            self.viewInterface.setNeedsDisplay()
+            self.viewInterface.showCircle(stepsToday: self.stepsToday, stepGoal: self.dailyGoal)
+        }
         
     }
     
     // Update Goal Status - Need To Call From Main Queue
     func updateGoalStatus() {
-        let remainingSteps = max(0, Int(self.dailyGoal) - Int(self.stepsToday))
+        let remainingSteps = max(0, Int(self.dailyGoal) - Int(self.stepsYesterday))
         self.stepsGoalLabel.text = "Steps Remaining -> Goal: \(remainingSteps)"
         playGameButton.isHidden = remainingSteps > 0
     }

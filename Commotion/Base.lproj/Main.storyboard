@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10000" minValue="0.0" maxValue="20000" translatesAutoresizingMaskIntoConstraints="NO" id="Z1u-hz-r1E">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5000" minValue="0.0" maxValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="Z1u-hz-r1E">
                                 <rect key="frame" x="14" y="70" width="347" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="CL2-Ft-BMa"/>
