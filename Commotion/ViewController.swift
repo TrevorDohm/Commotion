@@ -16,11 +16,12 @@ class ViewController: UIViewController {
     let activityManager = CMMotionActivityManager()
     let pedometer = CMPedometer()
     let motion = CMMotionManager()
+    let calendar = Calendar.current
     
-    var totalSteps: Float = 0.0 {
-        willSet(newtotalSteps) {
+    var stepsToday: Float = 0.0 {
+        willSet(newStepsToday) {
             DispatchQueue.main.async {
-                self.stepsLabel.text = "Steps Today: \(newtotalSteps)"
+                self.stepsLabel.text = "Steps Today: \(newStepsToday)"
                 self.checkGoalStatus()
             }
         }
@@ -40,11 +41,10 @@ class ViewController: UIViewController {
                 UserDefaults.standard.set(dailyGoal, forKey: "DailyGoal")
             }
             DispatchQueue.main.async{
-                self.stepsGoalLabel.text = "Steps to Goal: \(Int(self.dailyGoal) - Int(self.totalSteps))"
+                self.stepsGoalLabel.text = "Steps to Goal: \(Int(self.dailyGoal) - Int(self.stepsToday))"
             }
         }
     }
-
     
     // MARK: UI Elements
     
@@ -71,11 +71,11 @@ class ViewController: UIViewController {
         
         stepsSlider.value = dailyGoal
         
-        self.totalSteps = 0.0
+        self.stepsToday = 0.0
         self.startActivityMonitoring()
         self.startPedometerMonitoring()
 //        self.startMotionUpdates()
-        self.fetchStepsForYesterday()
+        self.fetchDateSteps()
     }
 
     
@@ -146,17 +146,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    //    func handleActivity(_ activity:CMMotionActivity?)->Void{
-    //        // unwrap the activity and disp
-    //        if let unwrappedActivity = activity {
-    //            DispatchQueue.main.async{
-    //                self.isWalking.text = "Walking: \(unwrappedActivity.walking)\n Still: \(unwrappedActivity.stationary)"
-    //            }
-    //        }
-    //    }
-    //
-    
     func activityDescription(activity: CMMotionActivity) -> String {
         if activity.walking { return "Walking" }
         if activity.stationary { return "Still" }
@@ -176,22 +165,39 @@ class ViewController: UIViewController {
     
     func handlePedometer(_ pedData: CMPedometerData?, error: Error?) {
         if let steps = pedData?.numberOfSteps {
-            self.totalSteps = steps.floatValue
+            self.stepsToday = steps.floatValue
         }
     }
     
-    func fetchStepsForYesterday() {
-        let calendar = Calendar.current
-        guard let yesterday = calendar.date(byAdding: .day, value: -1, to: calendar.startOfDay(for: Date())) else { return }
-        pedometer.queryPedometerData(from: yesterday, to: Date()) { (data, error) in
+    
+    func fetchDateSteps() {
+        
+        // Get Start Of Today (12:00 AM - Midnight)
+        let startOfToday = calendar.startOfDay(for: Date())
+        
+        // Get Start Of Yesterday (Above, Yesterday)
+        guard let startOfYesterday = calendar.date(byAdding: .day, value: -1, to: startOfToday) else { return }
+        
+        // Get End Of Yesterday (One Second Before Midnight Today)
+        guard let endOfYesterday = calendar.date(byAdding: .second, value: -1, to: startOfToday) else { return }
+        
+        // Fetch Steps For Yesterday
+        pedometer.queryPedometerData(from: startOfYesterday, to: endOfYesterday) { (data, error) in
             if let steps = data?.numberOfSteps {
                 self.stepsYesterday = steps.floatValue
+            }
+        }
+        
+        // Fetch Steps For Today
+        pedometer.queryPedometerData(from: startOfToday, to: Date()) { (data, error) in
+            if let steps = data?.numberOfSteps {
+                self.stepsToday = steps.floatValue
             }
         }
     }
     
     func checkGoalStatus() {
-        if self.totalSteps >= self.dailyGoal {
+        if self.stepsToday >= self.dailyGoal {
             playGameButton.isHidden = false
         } else {
             playGameButton.isHidden = true
