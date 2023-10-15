@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -59,16 +60,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps Yesterday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcl-7D-P3i">
-                                <rect key="frame" x="16" y="631" width="260" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="dab-Su-UjX"/>
-                                    <constraint firstAttribute="width" constant="260" id="kB0-ME-bZd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxl-py-5NL">
                                 <rect key="frame" x="284" y="602" width="75" height="50"/>
                                 <constraints>
@@ -81,20 +72,42 @@
                                     <segue destination="uAs-2Q-GOu" kind="show" id="cCL-DP-zwF"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps Yesterday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcl-7D-P3i">
+                                <rect key="frame" x="16" y="631" width="260" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="dab-Su-UjX"/>
+                                    <constraint firstAttribute="width" constant="260" id="kB0-ME-bZd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MPT-yJ-Mx4" customClass="ViewInterface" customModule="Commotion" customModuleProvider="target">
+                                <rect key="frame" x="16" y="137" width="343" height="457"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="343" id="N1S-96-RgB"/>
+                                    <constraint firstAttribute="height" constant="457" id="qVX-qv-dLk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Z1u-hz-r1E" firstAttribute="top" secondItem="HdO-Ft-GJs" secondAttribute="bottom" constant="8" symbolic="YES" id="0cz-VD-rwV"/>
+                            <constraint firstItem="KYq-39-foA" firstAttribute="top" secondItem="MPT-yJ-Mx4" secondAttribute="bottom" constant="8" symbolic="YES" id="1bO-bD-YS2"/>
                             <constraint firstItem="jxl-py-5NL" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="6AT-O1-L6X"/>
                             <constraint firstItem="y4k-Fy-Nyf" firstAttribute="top" secondItem="Z1u-hz-r1E" secondAttribute="bottom" constant="8" symbolic="YES" id="CTL-6a-NYq"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jxl-py-5NL" secondAttribute="bottom" constant="15" id="Gd9-OE-eMk"/>
                             <constraint firstItem="gcl-7D-P3i" firstAttribute="top" secondItem="KYq-39-foA" secondAttribute="bottom" constant="8" symbolic="YES" id="IKe-qQ-zF6"/>
+                            <constraint firstItem="MPT-yJ-Mx4" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ISP-JB-T19"/>
                             <constraint firstItem="Z1u-hz-r1E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ITt-Hc-mb4"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="gcl-7D-P3i" secondAttribute="bottom" constant="15" id="KlT-sm-3CO"/>
                             <constraint firstItem="KYq-39-foA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="MTE-HA-uAY"/>
                             <constraint firstItem="HdO-Ft-GJs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Pmo-sg-g83"/>
                             <constraint firstAttribute="trailingMargin" secondItem="y4k-Fy-Nyf" secondAttribute="trailing" constant="10" id="REF-mF-mEV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HdO-Ft-GJs" secondAttribute="trailing" constant="10" id="X8x-EE-cIs"/>
+                            <constraint firstItem="MPT-yJ-Mx4" firstAttribute="top" secondItem="y4k-Fy-Nyf" secondAttribute="bottom" constant="8" symbolic="YES" id="chY-Qw-2SU"/>
+                            <constraint firstItem="MPT-yJ-Mx4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="mjj-HC-aT0"/>
                             <constraint firstItem="HdO-Ft-GJs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="21" id="tHh-hX-z1d"/>
                             <constraint firstItem="Z1u-hz-r1E" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="tjm-Dt-HJq"/>
                             <constraint firstItem="y4k-Fy-Nyf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="yIc-qY-l41"/>
@@ -109,6 +122,7 @@
                         <outlet property="stepsLabel" destination="y4k-Fy-Nyf" id="saR-4n-TYT"/>
                         <outlet property="stepsSlider" destination="Z1u-hz-r1E" id="djv-At-LhT"/>
                         <outlet property="stepsYesterdayLabel" destination="gcl-7D-P3i" id="Mq1-we-6bv"/>
+                        <outlet property="viewInterface" destination="MPT-yJ-Mx4" id="OPJ-Fn-5D4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -135,4 +149,9 @@
             <point key="canvasLocation" x="1426" y="337"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

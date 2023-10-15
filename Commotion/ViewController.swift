@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     var stepsYesterday: Float = 0.0 {
         willSet(newStepsYesterday) {
             DispatchQueue.main.async {
-                self.stepsYesterdayLabel.text = "Steps Yesterday: \(newStepsYesterday)"
+                self.stepsYesterdayLabel.text = "Steps Yesterday: \(Int(newStepsYesterday))"
             }
         }
     }
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
                 UserDefaults.standard.set(dailyGoal, forKey: "DailyGoal")
             }
             DispatchQueue.main.async{
-                self.stepsGoalLabel.text = "Steps to Goal: \(Int(self.dailyGoal) - Int(self.stepsToday))"
+                self.checkGoalStatus()
             }
         }
     }
@@ -57,6 +57,7 @@ class ViewController: UIViewController {
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         self.dailyGoal = sender.value
     }
+    @IBOutlet weak var viewInterface: ViewInterface!
     
     // MARK: View Lifecycles
     
@@ -74,23 +75,8 @@ class ViewController: UIViewController {
         self.stepsToday = 0.0
         self.startActivityMonitoring()
         self.startPedometerMonitoring()
-//        self.startMotionUpdates()
         self.fetchDateSteps()
     }
-
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        if let savedGoal = UserDefaults.standard.float(forKey: "DailyGoal")
-//        self.totalSteps = 0.0
-//
-//        // Start monitoring
-//        self.startActivityMonitoring()
-//        self.startPedometerMonitoring()
-//        self.startMotionUpdates()
-//        self.fetchStepsForYesterday()
-//    }
     
     // MARK: Raw Motion Functions
     
@@ -99,17 +85,6 @@ class ViewController: UIViewController {
             self.motion.startDeviceMotionUpdates(to: OperationQueue.main, withHandler: self.handleMotion)
         }
     }
-    
-//    // MARK: =====Raw Motion Functions=====
-//    func startMotionUpdates(){
-//        // some internal inconsistency here: we need to ask the device manager for device
-//
-//        // TODO: should we be doing this from the MAIN queue? You will need to fix that!!!....
-//        if self.motion.isDeviceMotionAvailable{
-//            self.motion.startDeviceMotionUpdates(to: OperationQueue.main,
-//                                                 withHandler: self.handleMotion)
-//        }
-//    }
     
     func handleMotion(_ motionData: CMDeviceMotion?, error: Error?) {
         if let gravity = motionData?.gravity {
@@ -128,16 +103,6 @@ class ViewController: UIViewController {
         }
     }
     
-//    // MARK: =====Activity Methods=====
-//    func startActivityMonitoring(){
-//        // is activity is available
-//        if CMMotionActivityManager.isActivityAvailable(){
-//            // update from this queue (should we use the MAIN queue here??.... )
-//            self.activityManager.startActivityUpdates(to: OperationQueue.main, withHandler: self.handleActivity)
-//        }
-//
-//    }
-    
     func handleActivity(_ activity: CMMotionActivity?) {
         if let unwrappedActivity = activity {
             let activityStatus = activityDescription(activity: unwrappedActivity)
@@ -146,6 +111,7 @@ class ViewController: UIViewController {
             }
         }
     }
+    
     func activityDescription(activity: CMMotionActivity) -> String {
         if activity.walking { return "Walking" }
         if activity.stationary { return "Still" }
@@ -168,8 +134,7 @@ class ViewController: UIViewController {
             self.stepsToday = steps.floatValue
         }
     }
-    
-    
+
     func fetchDateSteps() {
         
         // Get Start Of Today (12:00 AM - Midnight)
@@ -197,10 +162,8 @@ class ViewController: UIViewController {
     }
     
     func checkGoalStatus() {
-        if self.stepsToday >= self.dailyGoal {
-            playGameButton.isHidden = false
-        } else {
-            playGameButton.isHidden = true
-        }
+        let remainingSteps = max(0, Int(self.dailyGoal) - Int(self.stepsToday))
+        self.stepsGoalLabel.text = "Steps to Goal: \(remainingSteps)"
+        playGameButton.isHidden = remainingSteps > 0
     }
 }
