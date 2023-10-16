@@ -199,8 +199,8 @@ class ViewController: UIViewController {
         self.stepsGoalLabel.text = "Steps Remaining for today: \(remainingSteps)"
         playGameButton.isHidden = remainingStepsForGame > 0
         
-        //To incentivize walking and reaching your
-        self.numberOfLives = max(5, stepsYesterday/10)
+        //To incentivize walking and reaching your step goal, your number of lives is dependent on your steps yesterday divided by 1000. To avoid having zero lives the default is 5.
+        self.numberOfLives = max(5, stepsYesterday/1000)
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
